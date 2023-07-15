@@ -35,7 +35,40 @@
             </table>
         </div>
     </div>
+
+    <div class="col-md-7">
+        <table class="table table-bordered table-hover">
+            <h1>Doctores</h1>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>                    
+                    <th>Cedula</th>
+                    <th>Edad</th>
+                    <th>Telefono</th>
+                    <th>Acción</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <% if (data) { %>
+                    <%  for (var i=0;i<data.length;i++){%>
+                    <tr>
+                        <td><%= data[i].Nombre %></td>
+                        <td><%= data[i].Apellido %></td>
+                        <td><%= data[i].cedula_usuario %></td>
+                        <td><%= data[i].Edad %></td>
+                        <td><%= data[i].Telefono %></td>
+                        <td>
+                            <a href="/delete/<%= data[i].id_persona %>" class="btn btn-danger">Borrar Dato</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    </div>
 </div>
 
-<h1>Doctores</h1>
 <%- include ('partials/_footer') %>

@@ -4,24 +4,24 @@
 <div class="container">
     
     <div class="row mt-5">
-        <h3>Bienvenido a MediPage, aqui podras agendar un cita medica</h3>
+        <h3>Bienvenido a MediPage, aqui podras agregar tu informacion como Doctor</h3>
         <h3> por favor ingresa tus datos</h3>
         <div class="col-md-4">
             <div class="card">
             <div class="card-body">
-                <form action="/add" method="post">
-                    <div class="form-group">
+                <form action="/adddoc" method="post">
+                    <div class="form-group1">
                         <h4>Nombre: </h4>
-                        <input class="form-control" type="text" name="Nombre" placeholder="Nombre" required> 
+                        <input class="form-control" type="text" name="nombre_doctor" placeholder="Nombre" required> 
                         <h4>Apellido: </h4>
-                        <input class="form-control" type="text" name="Apellido" placeholder="Apellido" required>
-                        <h4>Cedula de Ciudadania: </h4>
-                        <input type="number" class="form-control" name="cedula_usuario"  min="100000" required>
-                        <h4>Edad</h4>
-                        <input class="form-control" type="number" name="Edad"  min="10" max="100" required>
+                        <input class="form-control" type="text" name="Apellido_doctor" placeholder="Apellido" required>
+                        <h4>Consultorio:</h4>
+                        <input type="number" class="form-control" name="cedula_doctor"  min="1" max="30" required>
+                        <h4>Correo de contacto:</h4>
+                        <input type="email" class="form-control" name="correo_de_contacto"  required>
                         <h4>Numero de contacto:</h4>
                         <input class="form-control" type="number" name="Telefono" placeholder="Telefono" min="1000000000" max="9999999999" required>
-
+                        
                     </div>
                     <br></br>
                     <button type="submit" class="btn btn-primary">GUARDAR USUARIO</button>
