@@ -10,9 +10,12 @@ router.get('/delete/:id',PersonasController.delete)
 
 //urls doc
 router.get('/doctor',PersonasController.doctor)
-router.get('/citas',PersonasController.listdoc)
 router.post('/adddoc',PersonasController.savedoc)
 router.get('/deletedoc/:id',PersonasController.deletedoc)
+
+//urls cit
+router.post('/addcita',PersonasController.savecita)
+router.get('/deletecita/:id',PersonasController.deletecita)
 
 
 module.exports=router 

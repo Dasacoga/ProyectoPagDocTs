@@ -2,9 +2,130 @@
 <div class="container" id="Cita">
     <div class="row mt-5">
 
-        <div class="col-md-7">
+
+            
+        <div class="col-md-2">
+
+        </div>
+
+        <div class="col-md-8">
+            <h1>Agendamiento de citas</h1>
+            <p>Para agendar una cita se requiere el numero de documento del usuario y 
+            la especialidad que solicita, unicamente seran elegibles los numeros de documento de los usuarios registrados
+                al igual que las especialidades registradas, para poder agendar las citas
+        </p>
+            <div class="card">
+            <div class="card-body">
+                <form action="/addcita" method="post">
+                    <div class="form-group">
+                        <h4>Cedula del usuario: </h4>
+                        <select class="form-control" name="cedula_usuario" id="lang">
+                            <% if (data) { %>
+                                <%  for (var i=0;i<data.length;i++){%>
+                                <tr>
+                                    <option><%= data[i].id_cedula_usuario %></option>
+                                </tr>
+                                <% } %>
+                            <% } %>
+                        </select>
+                        <h4>Especialidad:</h4>
+                        <select class="form-control" name="Especialidad" id="lang">
+                            <% if (datadoc) { %>
+                                <%  for (var i=0;i<datadoc.length;i++){%>
+                                <tr>
+                                    <option><%= datadoc[i].Especialidad %> Doctor: <%= datadoc[i].nombre_doctor %> <%= datadoc[i].Apellido_doctor %></option>
+
+                                </tr>
+                                <% } %>
+                            <% } %>
+                        </select>
+                        <h4>Fecha y hora</h4>
+                            <div class="row mt-2">
+                            <div class="col-md-3">
+                                <input class="form-control" type="date" min="2023-08-01" max="2023-09-30"   name="Fecha" required>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" name="hora" id="lang">
+                                    <%  for (var i=7;i<22;i++){%>
+                                        <% b=0 %>
+                                        <% if (b==0) { %>
+                                            <tr>
+                                                <option><%= i %>:00</option> 
+                                            </tr>
+                                            <% b=30 %>
+                                        <% } %>
+                                        <% if (b==30 & i!=21) { %>
+                                            <tr>
+                                                <option><%= i %>:30</option> 
+                                            </tr>
+                                            <% b=30 %>
+                                        <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            </div>
+                    <br></br>
+                    <button type="submit" class="btn btn-primary">AGENDAR CITA</button>
+                </form>
+                
+                
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
             <table class="table table-bordered table-hover">
-                <h1>Usuarios</h1>
+                <h1>Citas Agendadas</h1>
+                <p>A continuacion se presentan las citas Agendadas</p>
+                
+                <thead>
+                    <tr>
+                        <th>Paciente</th>         
+                        <th>Especialidad y doctor</th>
+                        <th>Fecha y Hora</th>
+                        <th>Acción</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <% if (datacita) { %>
+                        <%  for (var i=0;i<datacita.length;i++){%>
+                        <tr>
+                            <td><%= datacita[i].cedula_usuario %></td>
+                            <td><%= datacita[i].Especialidad %></td>
+                            <td><%= datacita[i].Fecha %> <%= datacita[i].hora %></td>
+
+
+                            <td>
+                                <a href="/deletecita/<%= datacita[i].id_cita_medica%>" class="btn btn-danger">Cancelar cita</a>
+                            </td>
+                        </tr>
+                        <% } %>
+                    <% } %>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+            <h1>Usuarios</h1>
+            <p>A continuacion se presentan los usuarios registrados</p>
+            <table class="table table-bordered table-hover">
+                
+
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -22,53 +143,67 @@
                         <tr>
                             <td><%= data[i].Nombre %></td>
                             <td><%= data[i].Apellido %></td>
-                            <td><%= data[i].cedula_usuario %></td>
+                            <td><%= data[i].id_cedula_usuario %></td>
                             <td><%= data[i].Edad %></td>
                             <td><%= data[i].Telefono %></td>
                             <td>
-                                <a href="/delete/<%= data[i].id_persona %>" class="btn btn-danger">Borrar Dato</a>
+                                <a href="/delete/<%= data[i].id_cedula_usuario %>" class="btn btn-danger">Borrar Dato</a>
                             </td>
                         </tr>
                         <% } %>
                     <% } %>
                 </tbody>
             </table>
+            </div>
         </div>
-    </div>
+        </div>
 
-    <div class="col-md-7">
+        <p></p>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+        <h1>Doctores</h1>
+        <p>A continuacion se presentan los Doctores registrados con sus respectivas
+            especialidades </p>
+
         <table class="table table-bordered table-hover">
-            <h1>Doctores</h1>
+
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Apellido</th>                    
-                    <th>Cedula</th>
-                    <th>Edad</th>
-                    <th>Telefono</th>
+                    <th>Apellido</th>       
+                    <th>Especialidad</th>             
+                    <th>Consultorio</th>
+                    <th>Correo</th>
                     <th>Acción</th>
                 </tr>
 
             </thead>
             <tbody>
-                <% if (data) { %>
-                    <%  for (var i=0;i<data.length;i++){%>
+                <% if (datadoc) { %>
+                    <%  for (var i=0;i<datadoc.length;i++){%>
                     <tr>
-                        <td><%= data[i].Nombre %></td>
-                        <td><%= data[i].Apellido %></td>
-                        <td><%= data[i].cedula_usuario %></td>
-                        <td><%= data[i].Edad %></td>
-                        <td><%= data[i].Telefono %></td>
+                        <td><%= datadoc[i].nombre_doctor %></td>
+                        <td><%= datadoc[i].Apellido_doctor %></td>
+                        <td><%= datadoc[i].Especialidad %></td>
+                        <td><%= datadoc[i].consultorio %></td>
+                        <td><%= datadoc[i].correo_de_contacto %></td>
+
                         <td>
-                            <a href="/delete/<%= data[i].id_persona %>" class="btn btn-danger">Borrar Dato</a>
+                            <a href="/deletedoc/<%= datadoc[i].id_doctor %>" class="btn btn-danger">Borrar Dato</a>
                         </td>
                     </tr>
                     <% } %>
                 <% } %>
+
+                
+
             </tbody>
         </table>
-    </div>
+        </div>
     </div>
 </div>
+    </div>
 
 <%- include ('partials/_footer') %>
